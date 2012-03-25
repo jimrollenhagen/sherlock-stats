@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Register :: Sherlock{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="span8">
+        <form class="form-horizontal" action="/accounts/register/" method="POST">
+            {% csrf_token %}
+            <fieldset>
+                <legend>Register an account</legend>
+                <span class="errors">{{errors}}</span>
+                <div class="control-group">
+                    <label class="control-label" for="username">Username</label>
+                    <div class="controls">
+                        <input type="text" class="input-xlarge" id="username" name="username" value="{{username}}" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="password">Password</label>
+                    <div class="controls">
+                        <input type="password" class="input-xlarge" id="password" name="password" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="password2">Verify Password</label>
+                    <div class="controls">
+                        <input type="password" class="input-xlarge" id="password2" name="password2" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="what-username">What.CD Username</label>
+                    <div class="controls">
+                        <input type="text" class="input-xlarge" id="what-username" name="what-username" value="{{what_username}}" />
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+{% endblock %}
