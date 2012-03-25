@@ -63,6 +63,7 @@ def register(request):
     if dupe_user:
         errors.append('Username already taken')
 
+    # TODO
     # verify user with what.cd and get ID
     # do this last so we don't make HTTP requests if not necessary
     what_id = 154963
@@ -72,7 +73,7 @@ def register(request):
         errors = '. '.join(errors)
         return render(request, 'registration/register.html', {'errors': errors, 'username': username, 'what_username': what_username})
 
-    # register account
-    # send PM to what.cd account
+    # TODO register account
+    # TODO send PM to what.cd account
     # return register successful
     return render(request, 'registration/register_success.html', {})
