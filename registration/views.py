@@ -73,7 +73,14 @@ def register(request):
         errors = '. '.join(errors)
         return render(request, 'registration/register.html', {'errors': errors, 'username': username, 'what_username': what_username})
 
-    # TODO register account
+    # register account
+    user = User(username=username, password=password)
+    user.save()
+    profile = UserProfile(user=user, whatcd_username=what_username, whatcd_id=what_id)
+    profile.save()
+
+    # TODO generate verification key, do verification logic
+
     # TODO send PM to what.cd account
     # return register successful
     return render(request, 'registration/register_success.html', {})
