@@ -1,26 +1,24 @@
 import requests, json
-from django.conf import settings
 
 WHATCD_URL = 'https://ssl.what.cd'
 
-login_data = {'username': settings.WHATCD_USER, 'password': settings.WHATCD_PASS}
-
 class WhatAPI():
-    def __init__(self):
-        self.cookies = None
+    def __init__(self, username, password):
+        self.login_data = {'username': username, 'password': password}
+        self.session = requests.session()
         self.login()
 
     def logged_in(self):
         try:
-            r = requests.get('%s/ajax.php?action=index' % WHATCD_URL, cookies=self.cookies)
+            r = self.session.get('%s/ajax.php?action=index' % WHATCD_URL, cookies=self.cookies)
             return r.headers['content-type'].startswith('application/json')
         except requests.ConnectionError:
             return False
 
     def login(self):
-        r = requests.post('%s/login.php' % WHATCD_URL, data=login_data)
+        r = self.session.post('%s/login.php' % WHATCD_URL, data=self.login_data)
         self.cookies = r.cookies
-        r = requests.get('%s/ajax.php?action=index' % WHATCD_URL, cookies=self.cookies)
+        r = self.session.get('%s/ajax.php?action=index' % WHATCD_URL, cookies=self.cookies)
         res = json.loads(r.text)
         self.authkey = res['response']['authkey']
 
@@ -33,7 +31,7 @@ class WhatAPI():
             'subject': subject,
             'body': body,
         }
-        r = requests.post(url, data=data, cookies=self.cookies)
+        r = self.session.post(url, data=data, cookies=self.cookies)
 
     def get_stats(self):
         # TODO write this sheeeeeet
