@@ -74,7 +74,8 @@ def register(request):
         return render(request, 'registration/register.html', {'errors': errors, 'username': username, 'what_username': what_username})
 
     # register account
-    user = User(username=username, password=password)
+    user = User(username=username)
+    user.set_password(password)
     user.save()
     profile = UserProfile(user=user, whatcd_username=what_username, whatcd_id=what_id)
     profile.save()
