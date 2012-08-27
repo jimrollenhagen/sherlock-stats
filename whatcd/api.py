@@ -1,6 +1,6 @@
 import requests, json
 
-WHATCD_URL = 'https://ssl.what.cd'
+WHATCD_URL = 'https://what.cd'
 
 class WhatAPI():
     def __init__(self, username, password):
